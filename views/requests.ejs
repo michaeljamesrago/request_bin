@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <ul>
+      <% requests.forEach(function(request){ %>
+        <li>
+          <ul>
+            <li><%= JSON.stringify(request.headers) %></li>
+            <li><%= JSON.stringify(request.body) %></li>
+          </ul>
+        </li>
+      <% }); %>
+    </ul>
+  </body>
+</html>

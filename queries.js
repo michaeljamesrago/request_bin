@@ -7,6 +7,15 @@ const pool = new Pool({
   port: 5432,
 })
 
+const allRequests = (request, response) => {
+  pool.query('SELECT * FROM requests', (error, results) => {
+  if (error) {
+    throw error
+  }
+  response.render('requests', { requests: results.rows })
+})
+}
+
 const addRequest = (request, response) => {
   const headers = JSON.stringify(request.headers);
   const body = JSON.stringify(request.body);
@@ -23,4 +32,5 @@ const addRequest = (request, response) => {
 
 module.exports = {
   addRequest,
+  allRequests,
 }
