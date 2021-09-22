@@ -6,6 +6,7 @@ const pool = new Pool({
   password: 'password',
   port: 5432,
 })
+const utility = require('./util');
 
 const allRequests = (request, response) => {
   pool.query('SELECT * FROM requests', (error, results) => {
@@ -14,6 +15,18 @@ const allRequests = (request, response) => {
   }
   response.render('requests', { requests: results.rows })
 })
+}
+
+const createBin = (request, response) => {
+  const newBin = utility.generateBinID(7);
+  console.log(newBin);
+  const sql = `INSERT INTO bins(bin) VALUES('${newBin}')`;
+  pool.query(sql, (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.render('newbin', { newBin })
+  })
 }
 
 const addRequest = (request, response) => {
@@ -33,4 +46,5 @@ const addRequest = (request, response) => {
 module.exports = {
   addRequest,
   allRequests,
+  createBin,
 }
