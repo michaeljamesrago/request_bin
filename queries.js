@@ -9,18 +9,22 @@ const pool = new Pool({
 const utility = require('./util');
 
 const allRequests = (request, response) => {
-  pool.query('SELECT * FROM requests', (error, results) => {
-  if (error) {
-    throw error
-  }
-  response.render('requests', { requests: results.rows })
-})
+  const bin = request.params.bin;
+  console.log(bin);
+  const sql = `SELECT * FROM requests WHERE bin='${bin}';`
+  console.log(sql);
+  pool.query(sql, (error, results) => {
+    if (error) {
+      throw error
+    }
+    console.log(results.rows);
+    response.render('requests', { requests: results.rows })
+  })
 }
 
 const createBin = (request, response) => {
-  const newBin = utility.generateBinID(7);
-  console.log(newBin);
-  const sql = `INSERT INTO bins(bin) VALUES('${newBin}')`;
+  const newBin = utility.generateBinID(8);
+  const sql = `INSERT INTO bins(bin) VALUES('${newBin}');`;
   pool.query(sql, (error, results) => {
     if (error) {
       throw error
@@ -32,12 +36,13 @@ const createBin = (request, response) => {
 const addRequest = (request, response) => {
   const headers = JSON.stringify(request.headers);
   const body = JSON.stringify(request.body);
+  const bin = request.params.bin;
   console.log("Headers: ", headers);
   console.log("Body: ", body);
-  const sql = `INSERT INTO requests(headers, body) VALUES('${headers}', '${body}')`;
+  const sql = `INSERT INTO requests(headers, body, bin) VALUES('${headers}', '${body}', '${bin}');`;
   pool.query(sql, (error, results) => {
     if (error) {
-      throw error
+      response.status(400).end()
     }
     response.status(200).end();
   })

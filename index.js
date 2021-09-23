@@ -6,8 +6,8 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.json());
 
-app.get('/hello/newbin', db.createBin)
-app.get('/hello', db.allRequests)
-app.post('/hello', db.addRequest)
+app.get('/newbin', db.createBin)
+app.get('/:bin', db.allRequests)
+app.post('/:bin', db.addRequest)
 
 app.listen(port, () => console.log("Request Bin App Development"))
