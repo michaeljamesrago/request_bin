@@ -1,7 +1,7 @@
 const express = require('express');
 const db = require('./queries');
 const app = express();
-const port = 3001;
+const port = 3002;
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.json());
