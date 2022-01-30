@@ -1,0 +1,21 @@
+body {
+  background-color: lemonchiffon;
+  color:darkslateblue
+}
+
+h1, p {
+  text-align: center;
+}
+
+form button {
+  width: 200px;
+  text-align: center;
+  position: relative;
+  margin-top: 25px;
+  margin-left: 50%;
+  right: 100px;
+}
+
+main {
+  margin-top: 150px;
+}

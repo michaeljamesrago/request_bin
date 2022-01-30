@@ -10,4 +10,4 @@ app.get('/newbin', db.createBin)
 app.get('/:bin', db.allRequests)
 app.post('/:bin', db.addRequest)
 
-app.listen(port, () => console.log("Request Bin App Development"))
+app.listen(port, () => console.log("Request Bin App"))
